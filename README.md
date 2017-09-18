@@ -6,11 +6,14 @@ You can also find swift version at here https://github.com/kevinzhow/PNChart-Swi
 
 A simple and beautiful chart lib with **animation** used in [Piner](https://itunes.apple.com/us/app/piner/id637706410) and [CoinsMan](https://itunes.apple.com/us/app/coinsman/id772163893) for iOS
 
-[![](https://dl.dropboxusercontent.com/u/1599662/pnchart.gif)](https://dl.dropboxusercontent.com/u/1599662/pnchart.gif)
+[![](https://s3.amazonaws.com/farshid.ghods.github/pnchart-gif.gif)](https://s3.amazonaws.com/farshid.ghods.github/pnchart-gif.gif)
 
 ## Requirements
 
-PNChart works on iOS 6.0 (Begin with 0.8.2 supports iOS 8 and Later only, if you are working with iOS 6 and iOS 7, use 0.8.1 instead.) and later version and is compatible with ARC projects. It depends on the following Apple frameworks, which should already be included with most Xcode templates:
+PNChart works on iOS 7.0+ and is compatible with ARC projects.
+If you need support for iOS 6, use PNChart <= 0.8.1. Note that 0.8.2 supports iOS 8.0+ only, 0.8.3 and newer supports iOS 7.0+.
+
+It depends on the following Apple frameworks, which should already be included with most Xcode templates:
 
 * Foundation.framework
 * UIKit.framework
@@ -66,7 +69,28 @@ lineChart.chartData = @[data01, data02];
 [lineChart strokeChart];
 ```
 
-[![](https://dl.dropboxusercontent.com/u/1599662/bar.png)](https://dl.dropboxusercontent.com/u/1599662/bar.png)
+
+You can choose to show smooth lines.
+
+```objective-c
+lineChart.showSmoothLines = YES;
+```
+
+[![](https://s3.amazonaws.com/farshid.ghods.github/pnchart-linechart-smooth.png)](https://s3.amazonaws.com/farshid.ghods.github/pnchart-linechart-smooth.png)
+
+
+You can set different colors for the same PNLineChartData item. for instance you can use "color" red for values less than 50 and use purple for values greater than 150.
+
+
+[![](https://s3.amazonaws.com/farshid.ghods.github/pnchart-rangecolors-2.png)](https://s3.amazonaws.com/farshid.ghods.github/pnchart-rangecolors-2.png)
+
+
+```objective-c
+lineChartData.rangeColors = @[
+        [[PNLineChartColorRange alloc] initWithRange:NSMakeRange(10, 30) color:[UIColor redColor]],
+        [[PNLineChartColorRange alloc] initWithRange:NSMakeRange(100, 200) color:[UIColor purpleColor]]
+];
+```
 
 ```objective-c
 #import "PNChart.h"
@@ -168,7 +192,6 @@ data02.dataTitle = @"Beta Beta Beta Beta";
 
 //Build the legend
 self.lineChart.legendStyle = PNLegendItemStyleSerial;
-self.lineChart.legendFontSize = 12.0;        
 UIView *legend = [self.lineChart getLegendWithMaxWidth:320];
 
 //Move legend to the desired position and add to view
@@ -180,7 +203,6 @@ UIView *legend = [self.lineChart getLegendWithMaxWidth:320];
 
 //Build the legend
 self.pieChart.legendStyle = PNLegendItemStyleStacked;
-self.pieChart.legendFontSize = 12.0;
 UIView *legend = [self.pieChart getLegendWithMaxWidth:200];
 
 //Move legend to the desired position and add to view
@@ -188,6 +210,16 @@ UIView *legend = [self.pieChart getLegendWithMaxWidth:200];
 [self.view addSubview:legend];
 ```
 
+#### Grid Lines
+
+Grid lines have been added to PNChart for Line Chart.
+
+```objective-c
+lineChart.showYGridLines = YES;
+lineChart.yGridLinesColor = [UIColor grayColor];
+```
+
+[![](https://s3.amazonaws.com/farshid.ghods.github/pnchart-gridline.png)](https://s3.amazonaws.com/farshid.ghods.github/pnchart-gridline.png)
 
 #### Update Value
 
@@ -244,6 +276,21 @@ lineChart.delegate = self;
 
 
 ```
+
+#### Animation
+
+Animation is enabled by default when drawing all charts. It can be disabled by setting `displayAnimation = NO`.
+
+```objective-c
+#import "PNChart.h"
+
+//For LineChart
+
+lineChart.displayAnimation = NO;
+
+```
+
+
 
 ```objective-c
 
